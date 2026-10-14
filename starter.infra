@@ -1,0 +1,14 @@
+# Файлы, которые сопровождает курс. Всё, чего здесь нет, — работа студента.
+#
+# Поставщик входит в этот список: он инструмент проверки, а не задание.
+# В пайплайне курса он всё равно подменяется эталонным — правки в нём
+# на результат проверки не влияют.
+
+go.mod
+Makefile
+Dockerfile
+Dockerfile.provider
+docker-compose.yml
+.golangci.yml
+cmd/provider/main.go
+internal/provider/provider.go

@@ -1,0 +1,26 @@
+version: "2"
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - bodyclose
+    - errorlint
+    - noctx
+    - contextcheck
+
+  exclusions:
+    rules:
+      # httptest.NewRequest не уходит в сеть, и требовать для него контекст
+      # незачем: правило noctx нацелено на запросы без дедлайна.
+      - path: _test\.go
+        linters:
+          - noctx
+
+formatters:
+  enable:
+    - gofmt
+    - goimports

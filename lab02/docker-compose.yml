@@ -1,0 +1,29 @@
+services:
+  provider:
+    build:
+      context: .
+      dockerfile: Dockerfile.provider
+    environment:
+      HTTP_ADDR: ":9090"
+    ports:
+      - "9090:9090"
+    stop_grace_period: 2s
+
+  weather:
+    build: .
+    depends_on:
+      - provider
+    environment:
+      HTTP_ADDR: ":8080"
+      PROVIDER_URL: "http://provider:9090"
+      REQUEST_BUDGET: "2s"
+      PROVIDER_TIMEOUT: "300ms"
+      RETRY_MAX: "2"
+      PROVIDER_CONCURRENCY: "8"
+      BREAKER_FAILURES: "5"
+      BREAKER_COOLDOWN: "3s"
+      CACHE_TTL: "60s"
+      LOG_LEVEL: "info"
+    ports:
+      - "8080:8080"
+    stop_grace_period: 2s
